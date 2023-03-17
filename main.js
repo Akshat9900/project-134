@@ -1,3 +1,7 @@
+difference=0;
+rightWristX=0;
+lefttWristX=0;
+
 function setup() {
     video=createCapture(VIDEO);
     video.size(550,500);
@@ -15,6 +19,11 @@ function modelLoaded() {
 
 function draw() {
     background(51);
+
+    document.getElementById("font_size").innerHTML = "Font size of the text will be = " + difference +"px";
+    textSize(difference);
+    fill('#FFE787');
+    text('Akshat',50,400);
 }
 
 function gotPoses(results)
@@ -22,5 +31,10 @@ function gotPoses(results)
     if(results.length>0)
     {
         console.log(results);
+        leftWristX=results[0].pose.leftWrist.x;
+        rightWristX=results[0].pose.rightWrist.x;
+        difference=floor(leftWristX-rightWristX);
+
+        console.log("leftWristX = "+ leftWristX +"rightWristX="+rightWristX+"difference="+difference);
     }
 }
